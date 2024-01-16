@@ -1,0 +1,12 @@
+models:
+  - name: raw_customer
+    columns:
+      - name: customerid
+        tests:
+          - unique
+          - not_null
+
+      - name: EMPLOYEEID
+        tests:
+          - accepted_values:
+              values: ['1', '2', '3', '4', '5', '6', '7', '8', '9']

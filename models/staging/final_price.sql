@@ -1,4 +1,3 @@
--- Add a new column for final price
 ALTER TABLE NORTHWIND_DATA.NWT_SCHEMA.order_detail_fresh
 ADD COLUMN final_price DECIMAL(10, 2);  -- Adjust the data type based on your requirements
 

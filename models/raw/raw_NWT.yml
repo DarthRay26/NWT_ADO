@@ -1,0 +1,59 @@
+sources:
+  - name: NWT_SCHEMA
+    description: a clone of the Snowflake Database
+    database: RAW
+    schema: NWT_SCHEMA
+    tables:
+      - name: ORDER_DETAIL
+        description: raw order_detail table
+        columns: 
+          - name: orderid
+            description: primary key for order detail
+            tests:
+              - unique
+              - not_null
+
+      - name: PRODUCT
+        description: raw product table
+        columns:
+          - name: productid
+            description: primary key for product
+            tests:
+              - unique
+              - not_null
+
+      - name: REGION
+        description: raw region table
+        columns:
+          - name: regionid
+            description: primary key for region
+            tests:
+              - unique
+              - not_null
+
+      - name: SHIPPER
+        description: raw shipper table
+        columns:
+          - name: shipperid
+            description: primary key for shipper
+            tests:
+              - unique
+              - not_null
+
+      - name: SUPPLIER
+        description: raw supplier table
+        columns:
+          - name: supplierid
+            description: primary key for supplier
+            tests:
+              - unique
+              - not_null
+
+      - name: TERRITORY
+        description: raw territory table
+        columns:
+          - name: territoryid
+            description: primary key for territory
+            tests:
+              - unique
+              - not_null

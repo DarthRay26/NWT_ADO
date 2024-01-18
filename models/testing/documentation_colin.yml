@@ -10,7 +10,7 @@ sources:
         description: Category of NWT's products
         columns:
           - name: CATEGORYID
-            description: Category ID
+            description: Primary key for category table
             tests:
               - unique
               - not_null
@@ -64,7 +64,7 @@ sources:
               - not_null
 
           - name: CUSTOMERID
-            description: Customer ID
+            description: Primary key for customer table
             tests:
               - unique
               - not_null
@@ -112,7 +112,7 @@ sources:
               - not_null
 
           - name: EMPLOYEEID
-            description: Employee ID
+            description: Primary key for employee table
             tests:
               - unique
               - not_null
@@ -185,13 +185,12 @@ sources:
         description: Employee territories information
         columns:
           - name: EMPLOYEEID
-            description: Employee ID
+            description: foreign key for employee table
             tests:
               - not_null
-            
 
           - name: TERRITORYID
-            description: Territory ID
+            description: Primary key for territory table
             tests:
               - not_null
               - unique
@@ -199,12 +198,12 @@ sources:
         description: Order information
         columns:
           - name: CUSTOMERID
-            description: Customer ID
+            description: foreign key for customer table
             tests:
               - not_null
 
           - name: EMPLOYEEID
-            description: Employee ID
+            description: foreign key for employee table
             tests:
               - not_null
 
@@ -219,7 +218,7 @@ sources:
               - not_null
 
           - name: ORDERID
-            description: Order ID
+            description: primary key for orders table
             tests:
               - unique
               - not_null

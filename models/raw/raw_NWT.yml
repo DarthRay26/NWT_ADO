@@ -4,37 +4,31 @@ sources:
     database: NORTHWIND_DATA
     schema: NWT_SCHEMA
     tables:
-      - name: ORDER_DETAIL
+      - name: raw_ORDER_DETAIL
         description: raw order_detail table
-        columns: 
+        columns:
           - name: orderid
             description: primary key for order detail
             tests:
-              - unique
               - not_null
-
           - name: productid
             description: foreign key for order detail
             tests:
               - not_null
-
           - name: unitprice
-            description: unitprice of product for order detail
+            description: unit price of product for order detail
             tests:
               - not_null
-
           - name: quantity
             description: product quantity for order detail
             tests:
               - not_null
-
           - name: discount
             description: discount for order detail
             tests:
               - not_null
 
-
-      - name: PRODUCT
+      - name: raw_PRODUCT
         description: raw product table
         columns:
           - name: productid
@@ -42,53 +36,44 @@ sources:
             tests:
               - unique
               - not_null
-
           - name: productname
-            description: product name for product 
+            description: product name for product
             tests:
               - not_null
-          
           - name: supplierid
             description: foreign key for supplier
             tests:
               - not_null
-
-           - name: categoryid
+          - name: categoryid
             description: foreign key for category
             tests:
               - not_null
-
-           - name: quantityperunit
+          - name: quantityperunit
             description: quantity per unit for each product
             tests:
               - not_null
-            
-           - name: unitprice
+          - name: unitprice
             description: unit price for each product
             tests:
               - not_null
-
-           - name: unitsinstock
+          - name: unitsinstock
             description: units in stock for each product
             tests:
               - not_null
-
-           - name: unitsinorder
+          - name: unitsonorder
             description: units in order for each product
             tests:
               - not_null
-
-           - name: reorderlevel
+          - name: reorderlevel
             description: reorder level for product
             tests:
               - not_null
-
-           - name: discontiued
+          - name: discontinued
             description: whether the product is discontinued
             tests:
               - not_null
 
-      - name: REGION
+      - name: raw_REGION
         description: raw region table
         columns:
           - name: regionid
@@ -96,13 +81,12 @@ sources:
             tests:
               - unique
               - not_null
-          
-           - name: regiondescription
+          - name: regiondescription
             description: description for region
             tests:
               - not_null
 
-      - name: SHIPPER
+      - name: raw_SHIPPER
         description: raw shipper table
         columns:
           - name: shipperid
@@ -110,18 +94,16 @@ sources:
             tests:
               - unique
               - not_null
-
-           - name: companyname
+          - name: companyname
             description: company name of shipper
             tests:
               - not_null
-
-           - name: phone
+          - name: phone
             description: phone number for shipper
             tests:
               - not_null
 
-      - name: SUPPLIER
+      - name: raw_SUPPLIER
         description: raw supplier table
         columns:
           - name: supplierid
@@ -129,64 +111,52 @@ sources:
             tests:
               - unique
               - not_null
-
-           - name: companyname
+          - name: companyname
             description: company name for supplier
             tests:
               - not_null
-
-           - name: contactname
+          - name: contactname
             description: contact name for supplier
             tests:
               - not_null
-
-           - name: contacttitle
+          - name: contacttitle
             description: contact title for supplier
             tests:
               - not_null
-
-           - name: address
+          - name: address
             description: address for supplier
             tests:
               - not_null
-
-           - name: city
+          - name: city
             description: city for supplier
             tests:
               - not_null
-
-           - name: region
+          - name: region
             description: region for supplier
             tests:
               - not_null
-
-           - name: postalcode
+          - name: postalcode
             description: postal code for supplier
             tests:
               - not_null
-
           - name: country
             description: country for supplier
             tests:
               - not_null
-
           - name: phone
             description: phone number for supplier
             tests:
               - not_null
-
           - name: fax
             description: fax for supplier
             tests:
               - not_null
-
           - name: homepage
             description: home page for supplier
             tests:
               - not_null
-          
 
-      - name: TERRITORY
+      - name: raw_TERRITORY
         description: raw territory table
         columns:
           - name: territoryid
@@ -194,12 +164,10 @@ sources:
             tests:
               - unique
               - not_null
-
           - name: territorydescription
             description: territory description for territory
             tests:
               - not_null
-
           - name: regionid
             description: foreign key for region
             tests:

@@ -13,7 +13,9 @@ sources:
             description: Primary key for category table
             tests:
               - unique
-              - not_null
+               - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: RAW_CUSTOMER
         description: Customer information in NWT's raw data
@@ -22,7 +24,9 @@ sources:
             description: Primary key for customer table
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: RAW_EMPLOYEES
         description: Employee information in NWT's raw data
@@ -31,7 +35,9 @@ sources:
             description: Primary key for employee table
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: RAW_EMPLOYEE_TERRITORIES
         description: Employee territories information
@@ -40,7 +46,16 @@ sources:
             description: Primary key for territory table
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: EMPLOYEEID
+            description: foreign key for employee table
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: RAW_ORDERS
         description: Order information
@@ -49,7 +64,23 @@ sources:
             description: Primary key for orders table
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: CUSTOMERID
+            description: foreign key for customer table
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: EMPLOYEEID
+            description: foreign key for employee table
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: raw_ORDER_DETAIL
         description: Raw order_detail table
@@ -57,7 +88,16 @@ sources:
           - name: orderid
             description: Primary key for order detail
             tests:
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: productid
+            description: foreign key for order detail
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: raw_PRODUCT
         description: Raw product table
@@ -66,7 +106,23 @@ sources:
             description: Primary key for product
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: supplierid
+            description: foreign key for supplier
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: categoryid
+            description: foreign key for category
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: raw_REGION
         description: Raw region table
@@ -75,7 +131,9 @@ sources:
             description: Primary key for region
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: raw_SHIPPER
         description: Raw shipper table
@@ -84,7 +142,9 @@ sources:
             description: Primary key for shipper
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: raw_SUPPLIER
         description: Raw supplier table
@@ -93,7 +153,9 @@ sources:
             description: Primary key for supplier
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
 
       - name: raw_TERRITORY
         description: Raw territory table
@@ -102,4 +164,13 @@ sources:
             description: Primary key for territory
             tests:
               - unique
-              - not_null
+              - not_null:
+                  - equals:
+                      value: "NULL"
+
+          - name: regionid
+            description: foreign key for region
+            tests:
+              - not_null:
+                  - equals:
+                      value: "NULL"

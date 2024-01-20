@@ -14,8 +14,7 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: RAW_CUSTOMER
         description: Customer information in NWT's raw data
@@ -25,8 +24,7 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: RAW_EMPLOYEES
         description: Employee information in NWT's raw data
@@ -36,8 +34,7 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: RAW_EMPLOYEE_TERRITORIES
         description: Employee territories information
@@ -47,15 +44,13 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: EMPLOYEEID
             description: foreign key for employee table
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: RAW_ORDERS
         description: Order information
@@ -65,39 +60,34 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: CUSTOMERID
             description: foreign key for customer table
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: EMPLOYEEID
             description: foreign key for employee table
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: raw_ORDER_DETAIL
         description: Raw order_detail table
         columns:
           - name: orderid
-            description: Primary key for order detail
+            description: Foreign key for order 
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: productid
             description: foreign key for order detail
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: raw_PRODUCT
         description: Raw product table
@@ -107,22 +97,19 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: supplierid
             description: foreign key for supplier
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: categoryid
             description: foreign key for category
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: raw_REGION
         description: Raw region table
@@ -132,8 +119,7 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: raw_SHIPPER
         description: Raw shipper table
@@ -143,8 +129,7 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: raw_SUPPLIER
         description: Raw supplier table
@@ -154,8 +139,7 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
       - name: raw_TERRITORY
         description: Raw territory table
@@ -165,12 +149,10 @@ sources:
             tests:
               - unique
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"
 
           - name: regionid
             description: foreign key for region
             tests:
               - not_null:
-                  - equals:
-                      value: "NULL"
+                  equals: "NULL"

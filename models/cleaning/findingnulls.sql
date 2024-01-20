@@ -1,3 +1,10 @@
+-- catergory 
+SELECT *
+FROM NORTHWIND_DATA.NWT_SCHEMA.raw_category
+WHERE categoryid like 'NULL'
+   OR categoryname like 'NULL'
+   OR description like 'NULL'
+   OR picture like 'NULL';
 --customers
 SELECT *
 FROM NORTHWIND_DATA.NWT_SCHEMA.raw_customer

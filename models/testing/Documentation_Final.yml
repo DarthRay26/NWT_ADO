@@ -13,7 +13,7 @@ sources:
             description: Primary key for category table
             tests:
               - unique
-               - not_null:
+              - not_null:
                   - equals:
                       value: "NULL"
 

@@ -10,4 +10,4 @@ WHERE customerid like 'NULL'
    OR POSTALCODE like 'NULL'
    OR COUNTRY like 'NULL'
    OR PHONE like 'NULL'
-   OR FAX like 'NULL';;
+   OR FAX like 'NULL';

@@ -1,4 +1,4 @@
--- catergory 
+-- category 
 SELECT *
 FROM NORTHWIND_DATA.NWT_SCHEMA.raw_category
 WHERE categoryid like 'NULL'

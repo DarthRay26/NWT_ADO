@@ -1,6 +1,9 @@
--- Rename the 'desciption' column to 'DESCRIPTION' in the 'category' table
-ALTER TABLE NORTHWIND_DATA.NWT_SCHEMA.raw_category
-RENAME COLUMN desciption TO DESCRIPTION;
+-- rename_category_columns.sql
 
-ALTER TABLE NORTHWIND_DATA.NWT_SCHEMA.raw_category
-RENAME COLUMN catergoryname TO CATEGORYNAME;
+-- Rename the 'desciption' column to 'DESCRIPTION' in the 'category' table
+ALTER TABLE {{ ref('raw_category') }}
+RENAME COLUMN desciption TO DESCRIPTION
+
+-- Rename the 'catergoryname' column to 'CATEGORYNAME' in the 'category' table
+ALTER TABLE {{ ref('raw_category') }}
+RENAME COLUMN catergoryname TO CATEGORYNAME

@@ -1,136 +1,144 @@
+-- data_quality_checks.sql
+
 -- category 
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_category
-WHERE categoryid like 'NULL'
-   OR categoryname like 'NULL'
-   OR description like 'NULL'
-   OR picture like 'NULL';
---customers
-SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_customer
-WHERE customerid like 'NULL'
-   OR companyname like 'NULL'
-   OR contactname like 'NULL'
-   OR contacttitle like 'NULL'
-   OR ADDRESS like 'NULL'
-   OR CITY like 'NULL'
-   OR POSTALCODE like 'NULL'
-   OR COUNTRY like 'NULL'
-   OR PHONE like 'NULL'
-   OR FAX like 'NULL';
+FROM {{ ref('raw_category') }}
+WHERE categoryid IS NULL
+   OR categoryname IS NULL
+   OR description IS NULL
+   OR picture IS NULL
 
--- most of the null values ate from region 70 nulls 
+-- customers
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_customer
-where region like 'NULL';
+FROM {{ ref('raw_customer') }}
+WHERE customerid IS NULL
+   OR companyname IS NULL
+   OR contactname IS NULL
+   OR contacttitle IS NULL
+   OR ADDRESS IS NULL
+   OR CITY IS NULL
+   OR POSTALCODE IS NULL
+   OR COUNTRY IS NULL
+   OR PHONE IS NULL
+   OR FAX IS NULL
 
---employees
+-- most of the null values are from region 70 nulls 
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_employees
-WHERE employeeid like 'NULL'
-   OR lastname like 'NULL'
-   OR firstname like 'NULL'
-   OR title like 'NULL'
-   OR titleofcourtesy like 'NULL'
-   OR birthdate like 'NULL'
-   OR hiredate like 'NULL'
-   OR address like 'NULL'
-   OR city like 'NULL'
-   OR region like 'NULL'
-   OR POSTALCODE like 'NULL'
-   OR country like 'NULL'
-   OR homephone like 'NULL'
-   OR extension like 'NULL'
-   OR photo like 'NULL'
-   OR notes like 'NULL'
-   OR photopath like 'NULL';
---OR reportsto like 'NULL' have to have 1 null 
+FROM {{ ref('raw_customer') }}
+WHERE region IS NULL
 
---region
+-- employees
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_employees
-where region like 'NULL';
---employee territories 0 nulls 
+FROM {{ ref('raw_employees') }}
+WHERE employeeid IS NULL
+   OR lastname IS NULL
+   OR firstname IS NULL
+   OR title IS NULL
+   OR titleofcourtesy IS NULL
+   OR birthdate IS NULL
+   OR hiredate IS NULL
+   OR address IS NULL
+   OR city IS NULL
+   OR region IS NULL
+   OR POSTALCODE IS NULL
+   OR country IS NULL
+   OR homephone IS NULL
+   OR extension IS NULL
+   OR photo IS NULL
+   OR notes IS NULL
+   OR photopath IS NULL
+   OR reportsto IS NULL
+-- OR reportsto IS NULL have to have 1 null 
+;
+
+-- region
+SELECT *
+FROM {{ ref('raw_employees') }}
+WHERE region IS NULL
+
+-- employee territories 0 nulls 
 SELECT count(*)
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_employee_territories
-where employeeid like 'NULL'
-or territoryid like'Null';
+FROM {{ ref('raw_employee_territories') }}
+WHERE employeeid IS NULL
+   OR territoryid IS NULL
 
---orders -- null values in postal code
+-- orders -- null values in postal code
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_orders
-WHERE ORDERID like 'NULL'
-   OR customerid like 'NULL'
-   OR employeeid like 'NULL'
-   OR orderdate like 'NULL'
-   OR requireddate like 'NULL'
-   OR shippeddate like 'NULL'
-   OR shipvia like 'NULL'
-   OR freight like 'NULL'
-   OR shipname like 'NULL'
-   OR shipaddress like 'NULL'
-   OR shipcity like 'NULL'
-   OR shipcountry like 'NULL'
-   OR shippostalcode like 'NULL';
+FROM {{ ref('raw_orders') }}
+WHERE ORDERID IS NULL
+   OR customerid IS NULL
+   OR employeeid IS NULL
+   OR orderdate IS NULL
+   OR requireddate IS NULL
+   OR shippeddate IS NULL
+   OR shipvia IS NULL
+   OR freight IS NULL
+   OR shipname IS NULL
+   OR shipaddress IS NULL
+   OR shipcity IS NULL
+   OR shipcountry IS NULL
+   OR shippostalcode IS NULL
+
 -- orders -most of the nulls are from region
 SELECT count(*)
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_orders
-where shipregion like 'NULL';
+FROM {{ ref('raw_orders') }}
+WHERE shipregion IS NULL
 
 -- Order detail (no nulls)
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_order_detail
-WHERE ORDERID like 'NULL'
-   OR productid like 'NULL'
-   OR UNITPRICE like 'NULL'
-   OR QUANTITY like 'NULL'
-   OR discount like 'NULL';
+FROM {{ ref('raw_order_detail') }}
+WHERE ORDERID IS NULL
+   OR productid IS NULL
+   OR UNITPRICE IS NULL
+   OR QUANTITY IS NULL
+   OR discount IS NULL
 
---Product no nulls
+-- Product no nulls
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_product
-WHERE ProductID like 'NULL'
-   OR productname like 'NULL'
-   OR SUPPLIERID like 'NULL'
-   OR categoryid like 'NULL'
-   OR quantityperunit like 'NULL'
-   OR unitprice like 'NULL'
-   OR unitsinstock like 'NULL'
-   OR unitsonorder like 'NULL'
-   OR reorderlevel like 'NULL'
-   OR discontinued like 'NULL';
+FROM {{ ref('raw_product') }}
+WHERE ProductID IS NULL
+   OR productname IS NULL
+   OR SUPPLIERID IS NULL
+   OR categoryid IS NULL
+   OR quantityperunit IS NULL
+   OR unitprice IS NULL
+   OR unitsinstock IS NULL
+   OR unitsonorder IS NULL
+   OR reorderlevel IS NULL
+   OR discontinued IS NULL
+
 -- Region (no nulls)
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_region
-WHERE regionid like 'NULL'
-   OR regiondescription like 'NULL';
+FROM {{ ref('raw_region') }}
+WHERE regionid IS NULL
+   OR regiondescription IS NULL
 
---Shipper(no nulls`)
+-- Shipper (no nulls)
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_shipper
-WHERE shipperid like 'NULL'
-   OR companyname like 'NULL'
-   OR phone like 'NULL';
+FROM {{ ref('raw_shipper') }}
+WHERE shipperid IS NULL
+   OR companyname IS NULL
+   OR phone IS NULL
 
---Supplier most of the nulls are from region fax and homepage
+-- Supplier most of the nulls are from region, fax, and homepage
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_supplier
-WHERE supplierid like 'NULL'
-   OR companyname like 'NULL'
-   OR contactname like 'NULL'
-   OR contacttitle like 'NULL'
-   OR address like 'NULL'
-   OR city like 'NULL'
-   OR region like 'NULL'
-   OR postalcode like 'NULL'
-   OR country like 'NULL'
-   OR phone like 'NULL'
-   OR fax like 'NULL'
-   OR homepage like 'NULL';
+FROM {{ ref('raw_supplier') }}
+WHERE supplierid IS NULL
+   OR companyname IS NULL
+   OR contactname IS NULL
+   OR contacttitle IS NULL
+   OR address IS NULL
+   OR city IS NULL
+   OR region IS NULL
+   OR postalcode IS NULL
+   OR country IS NULL
+   OR phone IS NULL
+   OR fax IS NULL
+   OR homepage IS NULL
 
---territory no nulls 
+-- Territory no nulls 
 SELECT *
-FROM NORTHWIND_DATA.NWT_SCHEMA.raw_territory
-WHERE territoryid like 'NULL'
-   OR territorydescription like 'NULL'
-   OR regionid like 'NULL';
+FROM {{ ref('raw_territory') }}
+WHERE territoryid IS NULL
+   OR territorydescription IS NULL
+   OR regionid IS NULL

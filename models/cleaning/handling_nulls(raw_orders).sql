@@ -25,9 +25,8 @@
 
 
 -- Drop rows where specified columns are null in raw_orders
-DELETE FROM NORTHWIND_DATA.NWT_SCHEMA.raw_orders
+DELETE FROM {{ ref('raw_orders') }}
 WHERE CUSTOMERID IS NULL
    OR EMPLOYEEID IS NULL
    OR ORDERID IS NULL
-   ;
 

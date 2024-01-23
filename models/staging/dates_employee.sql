@@ -22,4 +22,3 @@ FROM NORTHWIND_DATA.NWT_SCHEMA.raw_employees;
 -- Select from the temporary table
 SELECT *
 FROM updated_raw_employees;
-s

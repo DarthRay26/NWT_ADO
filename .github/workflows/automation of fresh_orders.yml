@@ -18,6 +18,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Use Python 3.8.x
+      uses: actions/setup-python@v2.2.1
+      with:
+        python-version: 3.8.x
+
     - name: Run Snowflake Queries
       uses: anecdotes-ai/snowflake-query@v1.2
       id: run_snowflake_queries

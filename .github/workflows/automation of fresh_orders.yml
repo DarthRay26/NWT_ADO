@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Run Snowflake Queries
-      uses: anecdotes-ai/snowflake-query@v1
+      uses: anecdotes-ai/snowflake-query@v1.2
       id: run_snowflake_queries
       with:
         snowflake_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
@@ -31,7 +31,7 @@ jobs:
           SELECT CURRENT_VERSION();
 
     - name: Create ORDERS Table
-      uses: anecdotes-ai/snowflake-query@v1
+      uses: anecdotes-ai/snowflake-query@v1.2
       with:
         snowflake_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
         snowflake_warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
@@ -64,7 +64,7 @@ jobs:
           );
 
     - name: Copy Data to ORDERS Table
-      uses: anecdotes-ai/snowflake-query@v1
+      uses: anecdotes-ai/snowflake-query@v1.2
       with:
         snowflake_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
         snowflake_warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}

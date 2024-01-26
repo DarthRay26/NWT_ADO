@@ -1,11 +1,9 @@
 -- Drop the existing ORDERS_FRESH table if it exists
 DROP TABLE IF EXISTS NWT_SCHEMA.ORDERS_FRESH;
 
--- Create a new ORDERS_FRESH table based on the dynamically fetched fresh data from GitHub
+-- Copy the data from the staged file into the ORDERS_FRESH table
 CREATE TABLE NWT_SCHEMA.ORDERS_FRESH AS
-SELECT *
-FROM (
-    -- Dynamically fetch the latest data from GitHub
-    SELECT *
-    FROM https://github.com/just4jc/Northwind-Traders-Dataset/raw/main/order_fresh.csv
-);
+COPY INTO NWT_SCHEMA.ORDERS_FRESH
+FROM 'https://github.com/just4jc/Northwind-Traders-Dataset/raw/main/order_fresh.csv'
+FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
+ON_ERROR = 'CONTINUE';

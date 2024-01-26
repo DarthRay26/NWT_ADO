@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'migrations/**'
- 
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -15,24 +15,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Use Python 3.8.x
-      uses: actions/setup-python@v2.2.1
-      with:
-        python-version: 3.8.x
-   
-    - name: Set up Snowflake CLI
-      uses: snowflakedb/snowflake-connector-python-action@v1
-      with:
-        SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-        SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-        SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-        SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-        SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-        SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      - name: Use Python 3.8.x
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.8.x
 
-    - name: Run SQL script
-      run: snowsql -f NWT_ADO/migration/overwriting_fresh_orders.sql
+      - name: Download CSV file
+        run: |
+          wget https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv -O order_fresh.csv
+
+      - name: Install SnowSQL
+        run: |
+          curl -o snowsql.pkg https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.21-linux_x86_64.pkg.zip
+          sudo apt-get update
+          sudo apt-get install unzip
+          unzip snowsql.pkg
+          sudo ./install_snowsql
+
+      - name: Set Snowflake Credentials
+        env:
+          SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWSQL_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWSQL_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+      - name: Run SnowSQL Queries
+        run: |
+          snowsql -c $SNOWSQL_ACCOUNT -u $SNOWSQL_USER -w $SNOWSQL_WAREHOUSE -f overwriting_fresh_orders.sql
+
+      - name: Stage and Copy Data (if needed)
+        run: |
+          snowsql -c $SNOWSQL_ACCOUNT -u $SNOWSQL_USER -w $SNOWSQL_WAREHOUSE -f <<EOF
+          PUT file://order_fresh.csv @~;
+          COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH
+          FROM @~/order_fresh.csv
+          FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1);
+          EOF

@@ -1,0 +1,33 @@
+name: Import Fresh Orders
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight
+
+jobs:
+  import_fresh_orders:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Download Fresh Data
+      run: |
+        # Download the latest fresh data from GitHub
+        wget -O /path/to/latest_fresh_data.csv https://github.com/just4jc/Northwind-Traders-Dataset/raw/main/order_fresh.csv
+      # Note: Replace /path/to/latest_fresh_data.csv with the actual path where you want to save the downloaded data
+
+    - name: Set up Snowflake CLI
+      uses: snowflakedb/snowflake-connector-python-action@v1
+      with:
+        account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+        warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        database: ${{ secrets.SNOWFLAKE_DATABASE }}
+        schema: NWT_SCHEMA
+        role: ${{ secrets.SNOWFLAKE_ROLE }}
+        username: ${{ secrets.SNOWFLAKE_USERNAME }}
+        password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+
+    - name: Run SQL script
+      run: snowsql -f path/to/your/sql/script.sql

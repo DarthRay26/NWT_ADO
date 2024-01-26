@@ -43,6 +43,9 @@ cur.execute(create_table_sql)
 # Download orders_fresh.csv
 df = pd.read_csv('https://raw.githubusercontent.com/just4jc/Northwind-Traders-Dataset/main/order_fresh.csv')
 
+# Convert column names to uppercase
+df.columns = df.columns.str.upper()
+
 # Write to Snowflake
 success, nchunks, nrows, _ = write_pandas(conn, df, 'ORDERS_FRESH')
 

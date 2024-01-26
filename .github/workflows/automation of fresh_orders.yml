@@ -60,7 +60,7 @@ jobs:
             SHIPCITY VARCHAR,
             SHIPREGION VARCHAR,
             SHIPPOSTALCODE VARCHAR,
-            SHIPCOUNTRY VARCHAR,
+            SHIPCOUNTRY VARCHAR
           );
 
           -- Put the file in the Snowflake internal stage

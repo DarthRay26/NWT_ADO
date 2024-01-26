@@ -17,10 +17,14 @@ conn = connect(
 # Create a cursor object
 cur = conn.cursor()
 
-# SQL command to drop the table if it exist
-drop_and_create_table_sql = """
-DROP TABLE IF EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH;
+# SQL command to drop the table if it exists
+drop_table_sql = "DROP TABLE IF EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH"
 
+# Execute the SQL command
+cur.execute(drop_table_sql)
+
+# SQL command to create the table
+create_table_sql = """
 CREATE TABLE NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
     ORDERID NUMBER(38,0),
     CUSTOMERID VARCHAR(16777216),
@@ -44,7 +48,7 @@ CREATE TABLE NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
 """
 
 # Execute the SQL command
-cur.execute(drop_and_create_table_sql)
+cur.execute(create_table_sql)
 
 # Download orders_fresh.csv
 df = pd.read_csv('https://raw.githubusercontent.com/just4jc/Northwind-Traders-Dataset/main/order_fresh.csv')

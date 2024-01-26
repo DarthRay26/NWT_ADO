@@ -15,7 +15,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/just4jc/Northwind-Traders-Da
 
 # Create a connection and write to Snowflake
 with engine.connect() as connection:
-    df.to_sql('ORDERS_FRESH', con=connection, if_exists='replace', index=False)
+    df.to_sql('ORDERS_FRESH', con=connection.connection, if_exists='replace', index=False)
 
 # Close the session
 session.close()

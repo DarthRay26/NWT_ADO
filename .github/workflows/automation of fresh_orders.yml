@@ -64,6 +64,6 @@ jobs:
           COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS
           FROM 'https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv'
           FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
-          ON_ERROR = 'CONTINUE';
+          ON_ERROR = 'ABORT_TRANSACTION';
           
           SELECT CURRENT_VERSION();

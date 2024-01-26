@@ -1,10 +1,8 @@
 name: Import Fresh Orders
 
 on:
-  push:
-    paths:
-      - 'NWT_ADO/migration/overwriting_fresh_orders.sql'
-      - 'just4jc/Northwind-Traders-Dataset/order_fresh.csv'
+  schedule:
+    - cron: '*/5 * * * *' # Run every 5 minutes
 
 jobs:
   import_fresh_orders:

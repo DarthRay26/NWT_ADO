@@ -62,7 +62,7 @@ jobs:
 
           -- Copy the data from the staged file into the ORDERS table
           COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS
-          FROM 'https://github.com/just4jc/Northwind-Traders-Dataset/raw/main/order_fresh.csv'
+          FROM 'https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv'
           FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
           ON_ERROR = 'CONTINUE';
           

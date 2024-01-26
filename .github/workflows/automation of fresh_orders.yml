@@ -1,8 +1,10 @@
 name: Import Fresh Orders
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Run daily at midnight
+  push:
+    paths:
+      - 'NWT_ADO/migration/overwriting_fresh_orders.sql'
+      - 'just4jc/Northwind-Traders-Dataset/order_fresh.csv'
 
 jobs:
   import_fresh_orders:
@@ -15,14 +17,13 @@ jobs:
     - name: Set up Snowflake CLI
       uses: snowflakedb/snowflake-connector-python-action@v1
       with:
-        account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-        warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-        database: ${{ secrets.SNOWFLAKE_DATABASE }}
-        schema: NWT_SCHEMA
-        role: ${{ secrets.SNOWFLAKE_ROLE }}
-        username: ${{ secrets.SNOWFLAKE_USERNAME }}
-        password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+        SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+        SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+        SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+        SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+        SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
 
     - name: Run SQL script
       run: snowsql -f NWT_ADO/migration/overwriting_fresh_orders.sql
-

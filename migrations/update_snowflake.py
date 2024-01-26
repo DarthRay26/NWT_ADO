@@ -17,9 +17,11 @@ conn = connect(
 # Create a cursor object
 cur = conn.cursor()
 
-# SQL command to create the table if it doesn't exist
-create_table_sql = """
-CREATE TABLE IF NOT EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
+# SQL command to drop the table if it exist
+drop_and_create_table_sql = """
+DROP TABLE IF EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH;
+
+CREATE TABLE NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
     ORDERID NUMBER(38,0),
     CUSTOMERID VARCHAR(16777216),
     EMPLOYEEID NUMBER(38,0),
@@ -35,14 +37,14 @@ CREATE TABLE IF NOT EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
     SHIPPOSTALCODE VARCHAR(16777216),
     SHIPCOUNTRY VARCHAR(16777216),
     primary key (ORDERID),
-	constraint FK_CUSTOMERID foreign key (CUSTOMERID) references NORTHWIND_DATA.NWT_SCHEMA.CUSTOMER(CUSTOMERID),
-	constraint FK_SHIPVIA foreign key (SHIPVIA) references NORTHWIND_DATA.NWT_SCHEMA.SHIPPER(SHIPPERID),
-	constraint FK_EMPLOYEEID foreign key (EMPLOYEEID) references NORTHWIND_DATA.NWT_SCHEMA.EMPLOYEES(EMPLOYEEID)
+    constraint FK_CUSTOMERID foreign key (CUSTOMERID) references NORTHWIND_DATA.NWT_SCHEMA.CUSTOMER(CUSTOMERID),
+    constraint FK_SHIPVIA foreign key (SHIPVIA) references NORTHWIND_DATA.NWT_SCHEMA.SHIPPER(SHIPPERID),
+    constraint FK_EMPLOYEEID foreign key (EMPLOYEEID) references NORTHWIND_DATA.NWT_SCHEMA.EMPLOYEES(EMPLOYEEID)
 )
 """
 
 # Execute the SQL command
-cur.execute(create_table_sql)
+cur.execute(drop_and_create_table_sql)
 
 # Download orders_fresh.csv
 df = pd.read_csv('https://raw.githubusercontent.com/just4jc/Northwind-Traders-Dataset/main/order_fresh.csv')

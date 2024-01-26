@@ -1,71 +1,70 @@
 name: Import Fresh Orders
 
 on:
- push:
-  branches:
-   - main
-  paths:
-   - 'migrations/**'
- 
- # Allows you to run this workflow manually from the Actions tab
- workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'migrations/**'
+ 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
- import_fresh_orders:
-  runs-on: ubuntu-latest
+  import_fresh_orders:
+    runs-on: ubuntu-latest
 
-  steps:
-  - name: Checkout code
-   uses: actions/checkout@v2
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-  - name: Use Python 3.8.x
-   uses: actions/setup-python@v2.2.1
-   with:
-    python-version: 3.8.x
+    - name: Use Python 3.8.x
+      uses: actions/setup-python@v2.2.1
+      with:
+        python-version: 3.8.x
 
-  - name: Download CSV file
-   run: |
-    wget https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv -O order_fresh.csv
+    - name: Download CSV file
+      run: |
+        wget https://github.com/just4jc/Northwind-Traders-Dataset/raw/main/order_fresh.csv -O order_fresh.csv
 
-  - name: Run Snowflake Queries
-   uses: anecdotes-ai/snowflake-query@v1.2
-   id: run_snowflake_queries
-   with:
-    snowflake_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-    snowflake_warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-    snowflake_username: ${{ secrets.SNOWFLAKE_USER }}
-    snowflake_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
-     
-    queries: |
-     CALL system$wait(5);
-     SELECT CURRENT_VERSION();
-      
-     -- Drop the existing ORDERS table if it exists
-     DROP TABLE IF EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH;
+    - name: Run Snowflake Queries
+      uses: anecdotes-ai/snowflake-query@v1.2
+      id: run_snowflake_queries
+      with:
+        snowflake_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+        snowflake_warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        snowflake_username: ${{ secrets.SNOWFLAKE_USER }}
+        snowflake_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+        
+        queries: |
+          CALL system$wait(5);
+          SELECT CURRENT_VERSION();
+          
+          -- Drop the existing ORDERS table if it exists
+          DROP TABLE IF EXISTS NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH;
 
-     -- Create the ORDERS table with the specified structure
-     CREATE TABLE NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
-      ORDERID NUMBER(38,0),
-      CUSTOMERID VARCHAR,
-      EMPLOYEEID NUMBER(38,0),
-      ORDERDATE DATE,
-      REQUIREDDATE DATE,
-      SHIPPEDDATE DATE,
-      SHIPVIA NUMBER(38,0),
-      FREIGHT NUMBER(38,0),
-      SHIPNAME VARCHAR,
-      SHIPADDRESS VARCHAR,
-      SHIPCITY VARCHAR,
-      SHIPREGION VARCHAR,
-      SHIPPOSTALCODE VARCHAR,
-      SHIPCOUNTRY VARCHAR
-     );
+          -- Create the ORDERS table with the specified structure
+          CREATE TABLE NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH (
+            ORDERID NUMBER(38,0),
+            CUSTOMERID VARCHAR,
+            EMPLOYEEID NUMBER(38,0),
+            ORDERDATE DATE,
+            REQUIREDDATE DATE,
+            SHIPPEDDATE DATE,
+            SHIPVIA NUMBER(38,0),
+            FREIGHT NUMBER(38,0),
+            SHIPNAME VARCHAR,
+            SHIPADDRESS VARCHAR,
+            SHIPCITY VARCHAR,
+            SHIPREGION VARCHAR,
+            SHIPPOSTALCODE VARCHAR,
+            SHIPCOUNTRY VARCHAR
+          );
 
-
-   -- Copy the data from the local file into the ORDERS table
-      COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH
-      FROM 'order_fresh.csv'
-      FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
-      ON_ERROR = 'CONTINUE';
-      
-      SELECT CURRENT_VERSION()
+          -- Copy the data from the local file into the ORDERS table
+          COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH
+          FROM 'order_fresh.csv'
+          FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
+          ON_ERROR = 'CONTINUE';
+          
+          SELECT CURRENT_VERSION()

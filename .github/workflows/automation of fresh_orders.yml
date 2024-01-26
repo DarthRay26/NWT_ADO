@@ -1,6 +1,5 @@
 name: Import Fresh Orders
 
-# Controls when the action will run. 
 on:
   push:
     branches:
@@ -8,7 +7,6 @@ on:
     paths:
       - 'migrations/**'
  
-    
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -20,6 +18,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Use Python 3.8.x
+      uses: actions/setup-python@v2.2.1
+      with:
+        python-version: 3.8.x
+   
     - name: Set up Snowflake CLI
       uses: snowflakedb/snowflake-connector-python-action@v1
       with:

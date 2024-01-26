@@ -31,6 +31,9 @@ jobs:
         snowflake_warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         snowflake_username: ${{ secrets.SNOWFLAKE_USER }}
         snowflake_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+        snowflake_schema: ${{ secrets.SNOWFLAKE_SCHEMA }}
+        snowflake_database: ${{ secrets.SNOWFLAKE_DATABASE }}
+        
         queries: |
           CALL system$wait(5);
           SELECT CURRENT_VERSION();
@@ -62,4 +65,4 @@ jobs:
           FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
           ON_ERROR = 'CONTINUE';
           
-          SELECT CURRENT_VERSION();
+          SELECT CURRENT_VERSION()

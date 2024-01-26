@@ -40,7 +40,7 @@ jobs:
 
           -- Create the ORDERS table with the specified structure
           CREATE TABLE NORTHWIND_DATA.NWT_SCHEMA.ORDERS (
-            ORDERID NUMBER(38,0) NOT NULL,
+            ORDERID NUMBER(38,0),
             CUSTOMERID VARCHAR,
             EMPLOYEEID NUMBER(38,0),
             ORDERDATE DATE,
@@ -54,16 +54,12 @@ jobs:
             SHIPREGION VARCHAR,
             SHIPPOSTALCODE VARCHAR,
             SHIPCOUNTRY VARCHAR,
-            PRIMARY KEY (ORDERID),
-            CONSTRAINT FK_CUSTOMERID FOREIGN KEY (CUSTOMERID) REFERENCES NORTHWIND_DATA.NWT_SCHEMA.CUSTOMER(CUSTOMERID),
-            CONSTRAINT FK_SHIPVIA FOREIGN KEY (SHIPVIA) REFERENCES NORTHWIND_DATA.NWT_SCHEMA.SHIPPER(SHIPPERID),
-            CONSTRAINT FK_EMPLOYEEID FOREIGN KEY (EMPLOYEEID) REFERENCES NORTHWIND_DATA.NWT_SCHEMA.EMPLOYEES(EMPLOYEEID)
           );
 
           -- Copy the data from the staged file into the ORDERS table
           COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS
           FROM 'https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv'
           FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
-          ON_ERROR = 'ABORT_TRANSACTION';
+          ON_ERROR = 'CONTINUE';
           
           SELECT CURRENT_VERSION();

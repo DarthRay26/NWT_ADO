@@ -4,7 +4,7 @@ ADD COLUMN age INT;
 
 -- Update the newly added age column
 UPDATE NORTHWIND_DATA.NWT_SCHEMA.raw_employees
-SET age = 1998 - EXTRACT(year FROM birthdate) - 
+SET age =  Date("1998-04-24")- EXTRACT(year FROM birthdate) - 
           CASE 
               WHEN EXTRACT(month FROM CURRENT_DATE()) < EXTRACT(month FROM birthdate) OR 
                    (EXTRACT(month FROM CURRENT_DATE()) = EXTRACT(month FROM birthdate) AND EXTRACT(day FROM CURRENT_DATE()) < EXTRACT(day FROM birthdate)) 

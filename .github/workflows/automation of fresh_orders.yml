@@ -33,10 +33,10 @@ jobs:
 
       - name: Set Snowflake Credentials
         env:
-          SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-          SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
-          SNOWSQL_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          SNOWSQL_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
       - name: Run SnowSQL Queries
         run: |

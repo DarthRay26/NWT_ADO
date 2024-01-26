@@ -1,13 +1,8 @@
 name: Update orders_fresh table in Snowflake
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'migrations/**'
- 
-  # Allows you to run this workflow manually from the Actions tab
+  schedule:
+    - cron: '0 */12 * * *'  # Run every 12 hours
   workflow_dispatch:
 
 jobs:

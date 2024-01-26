@@ -23,6 +23,10 @@ jobs:
       with:
         python-version: 3.8.x
 
+    - name: Download CSV file
+      run: |
+        wget https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv -O order_fresh.csv
+
     - name: Run Snowflake Queries
       uses: anecdotes-ai/snowflake-query@v1.2
       id: run_snowflake_queries
@@ -59,9 +63,12 @@ jobs:
             SHIPCOUNTRY VARCHAR,
           );
 
+          -- Put the file in the Snowflake internal stage
+          PUT file://order_fresh.csv @~;
+
           -- Copy the data from the staged file into the ORDERS table
           COPY INTO NORTHWIND_DATA.NWT_SCHEMA.ORDERS_FRESH
-          FROM 'https://github.com/just4jc/Northwind-Traders-Dataset/blob/main/order_fresh.csv'
+          FROM @~/order_fresh.csv
           FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER = 1)
           ON_ERROR = 'CONTINUE';
           

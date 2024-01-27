@@ -1,2 +1,6 @@
-DELETE FROM raw_order_detail
-WHERE orderid NOT IN (SELECT orderid FROM raw_order);
+DELETE FROM rr_orders
+WHERE orderid NOT IN (
+    SELECT MIN(orderid) AS min_orderid
+    FROM rr_orders
+    GROUP BY orderid
+);

@@ -1,3 +1,3 @@
--- INSERT INTO {{ ref('orders') }}
--- SELECT *
--- FROM {{ ref('orders_fresh') }}
+INSERT INTO orders
+SELECT *
+FROM orders_fresh;

@@ -6,7 +6,7 @@ sources:
     database: NORTHWIND_DATA
     schema: NWT_SCHEMA
     tables:
-      - name: RAW_CATEGORY
+      - name: RR_CATEGORY
         description: Category of NWT's products
         columns:
           - name: CATEGORYID
@@ -15,7 +15,7 @@ sources:
               - unique
               - not_null
 
-      - name: RAW_CUSTOMER
+      - name: RR_CUSTOMER
         description: Customer information in NWT's raw data
         columns:
           - name: CUSTOMERID
@@ -24,7 +24,7 @@ sources:
               - unique
               - not_null
 
-      - name: RAW_EMPLOYEES
+      - name: RR_EMPLOYEES
         description: Employee information in NWT's raw data
         columns:
           - name: EMPLOYEEID
@@ -33,7 +33,7 @@ sources:
               - unique
               - not_null
 
-      - name: RAW_EMPLOYEE_TERRITORIES
+      - name: RR_EMPLOYEE_TERRITORIES
         description: Employee territories information
         columns:
           - name: TERRITORYID
@@ -47,7 +47,7 @@ sources:
             tests:
               - not_null
 
-      - name: RAW_ORDERS
+      - name: RR_ORDERS
         description: Order information
         columns:
           - name: ORDERID
@@ -66,7 +66,7 @@ sources:
             tests:
               - not_null
 
-      - name: raw_ORDER_DETAIL
+      - name: RR_ORDER_DETAIL
         description: Raw order_detail table
         columns:
           - name: orderid
@@ -79,7 +79,7 @@ sources:
             tests:
               - not_null
 
-      - name: raw_PRODUCT
+      - name: RR_PRODUCT
         description: Raw product table
         columns:
           - name: productid
@@ -98,7 +98,7 @@ sources:
             tests:
               - not_null
 
-      - name: raw_REGION
+      - name: RR_REGION
         description: Raw region table
         columns:
           - name: regionid
@@ -107,7 +107,7 @@ sources:
               - unique
               - not_null
 
-      - name: raw_SHIPPER
+      - name: RR_SHIPPER
         description: Raw shipper table
         columns:
           - name: shipperid
@@ -116,7 +116,7 @@ sources:
               - unique
               - not_null
 
-      - name: raw_SUPPLIER
+      - name: RR_SUPPLIER
         description: Raw supplier table
         columns:
           - name: supplierid
@@ -125,7 +125,7 @@ sources:
               - unique
               - not_null
 
-      - name: raw_TERRITORY
+      - name: RR_TERRITORY
         description: Raw territory table
         columns:
           - name: territoryid
